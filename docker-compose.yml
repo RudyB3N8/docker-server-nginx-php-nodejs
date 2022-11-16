@@ -28,7 +28,7 @@ services:
         container_name: "db"
         restart: unless-stopped
         ports:
-            - 3306:3306
+            - '3306:3306'
         environment:
             MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
             MYSQL_USER: "${MYSQL_USER}"
@@ -39,8 +39,7 @@ services:
             - ./logs/mysql:/var/log:consistent
     php:
         build: ./php
-        image: php
-        container_name: "php"
+        image: "php"
         environment:
             MYSQL_USER: "${MYSQL_USER}"
             MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
@@ -53,17 +52,19 @@ services:
             - db
     nodejs-app1:
         build: ./nodejs/www/app1
-        container_name: "nodejs-app1"
+        image: "nodejs-app1"
         restart: unless-stopped
         ports:
             - '${NODEJS_APP1_PORT}:${NODEJS_APP1_PORT}'
         environment:
-            NODE_PORT: ${NODEJS_APP1_PORT}
-            NODE_ENV: ${NODEJS_ENV}
+            NODE_PORT: "${NODEJS_APP1_PORT}"
+            NODE_ENV: "${NODEJS_ENV}"
         volumes:
             - ./nodejs/www/app1:/usr/src/app
+            - nodemodules-app1:/usr/src/app/node_modules
         user: node
 volumes:
     nginxproxymanager:
     letsencrypt:
     db:
+    nodemodules-app1:
