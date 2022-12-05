@@ -63,7 +63,7 @@ RUN curl -sS https://getcomposer.org/installer | \
 
 ######## Symfony CLI #########
 RUN apk add --no-cache bash \
-	&& curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.alpine.sh' | bash \
+	&& curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.alpine.sh' | version=any-version bash \
 	&& apk add symfony-cli
 
 RUN rm -rf /tmp/* /var/cache/apk/*
